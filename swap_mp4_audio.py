@@ -15,8 +15,7 @@ if not path.exists(audio_folder):
 if not path.exists(output_folder):
     output_folder = getcwd()
 
-count = 0
-video_paths = []
+video_paths = ""
 video_files = []
 for (root, dirnames, filenames) in walk(video_folder):
     video_paths.append(root)
@@ -24,7 +23,7 @@ for (root, dirnames, filenames) in walk(video_folder):
     for name in filenames:
         video_files.append(name)
 
-audio_paths = []
+audio_paths = ""
 audio_files = []
 for (root, dirnames, filenames) in walk(audio_folder):
     audio_paths.append(root)
@@ -32,10 +31,13 @@ for (root, dirnames, filenames) in walk(audio_folder):
     for name in filenames:
         audio_files.append(name)
 
+video_files = sorted(video_files)
+audio_files = sorted(audio_files)
+
 n_items = len(video_files)
 for i in range(n_items):
-    video = VideoFileClip(video_paths[i] + video_files[i])
-    audio = AudioFileClip(audio_paths[i] + audio_files[i])
+    video = VideoFileClip(video_paths + video_files[i])
+    audio = AudioFileClip(audio_paths + audio_files[i])
 
     video = video.set_audio(audio)
 
